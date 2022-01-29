@@ -3,6 +3,7 @@ package com.paulobruni.personapi.service;
 import com.paulobruni.personapi.Entity.Person;
 import com.paulobruni.personapi.dto.request.PersonDTO;
 import com.paulobruni.personapi.dto.response.MessageResponseDTO;
+import com.paulobruni.personapi.exception.PersonNotFoundException;
 import com.paulobruni.personapi.mapper.PersonMapper;
 import com.paulobruni.personapi.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,5 +44,21 @@ public class PersonService {
         return allPeople.stream()
                 .map(personMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public PersonDTO findById(Long id) throws PersonNotFoundException {
+
+        Person person = personRepository.findById(id)
+                .orElseThrow(() -> new PersonNotFoundException(id));
+
+        /*Optional<Person> optionalPerson = personRepository.findById(id);
+
+        if(optionalPerson.isEmpty()){
+            throw new PersonNotFoundException(id);
+        }
+
+        return personMapper.toDTO(optionalPerson.get());*/
+
+        return personMapper.toDTO(person);
     }
 }
