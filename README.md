@@ -1,14 +1,19 @@
 # PERSON API
 
-## Requisitos
+## Utilizações
 
+* Estilo arquitetural REST
 * Git
 * Java 11
 * H2 Database
-* Spring boot
 * Maven
 * Hibernate
 * Heroku
+* Spring Boot Framework
+* Spring Data
+* MapStruct
+* Postman
+* Deploy no heroku
 
 ## Spring Boot
 
